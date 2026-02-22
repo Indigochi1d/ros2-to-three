@@ -90,12 +90,12 @@ renderer.render(scene, camera)  → 화면 갱신
 
 ### 개발 중 Mock 모드 (ROS2 없이)
 
-```
+```javascript
 setInterval(() => {
-  const t = Date.now() / 1000
-  robot.setJointValue("joint1", Math.sin(t))
-  robot.setJointValue("joint2", Math.cos(t))
-}, 16)
+  const t = Date.now() / 1000;
+  robot.setJointValue("joint1", Math.sin(t));
+  robot.setJointValue("joint2", Math.cos(t));
+}, 16);
 ```
 
 ROS2와 rosbridge 없이 브라우저에서 직접 가짜 데이터를 생성해 뷰어를 개발할 수 있다.

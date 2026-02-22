@@ -1,0 +1,21 @@
+{
+  "name": "ros2-to-three",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.172.0",
+    "urdf-loader": "^0.12.4",
+    "roslib": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.172.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}
