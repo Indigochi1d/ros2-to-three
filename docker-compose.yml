@@ -1,0 +1,7 @@
+services:
+  rosbridge:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "9090:9090"
