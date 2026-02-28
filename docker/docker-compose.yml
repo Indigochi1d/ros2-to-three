@@ -1,0 +1,26 @@
+services:
+  rosbridge:
+    build:
+      context: ./rosbridge
+    ports:
+      - "9090:9090"
+    environment:
+      - ROS_DOMAIN_ID=0
+    networks:
+      - ros_net
+    restart: unless-stopped
+
+  gait_controller:
+    build:
+      context: ./gait_controller
+    environment:
+      - ROS_DOMAIN_ID=0
+    networks:
+      - ros_net
+    depends_on:
+      - rosbridge
+    restart: unless-stopped
+
+networks:
+  ros_net:
+    driver: bridge

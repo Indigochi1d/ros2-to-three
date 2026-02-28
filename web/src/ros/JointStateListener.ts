@@ -1,4 +1,4 @@
-import ROSLIB from 'roslib';
+import ROSLIB from "roslib";
 
 type JointStateCallback = (joints: Record<string, number>) => void;
 
@@ -8,12 +8,12 @@ export class JointStateListener {
   constructor(ros: ROSLIB.Ros, callback: JointStateCallback) {
     this.topic = new ROSLIB.Topic({
       ros,
-      name: '/joint_states',
-      messageType: 'sensor_msgs/JointState',
+      name: "/joint_states",
+      messageType: "sensor_msgs/JointState",
     });
 
     this.topic.subscribe((msg) => {
-      const state = msg as unknown as { name: string[]; position: number[] };
+      const state = msg as { name: string[]; position: number[] };
       const joints: Record<string, number> = {};
       state.name.forEach((name, i) => {
         joints[name] = state.position[i];
