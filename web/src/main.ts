@@ -3,6 +3,8 @@ import { loadRobot } from "./viewer/RobotLoader";
 import { JointController } from "./viewer/JointController";
 import { RosBridge } from "./ros/RosBridge";
 import { JointStateListener } from "./ros/JointStateListener";
+import { CmdWalkPublisher } from "./ros/CmdWalkPublisher";
+import { OdomListener } from "./ros/OdomListener";
 
 const URDF_URL = "/robots/valkyrie/urdf/valkyrie_sim.urdf";
 
@@ -24,6 +26,10 @@ async function main() {
     const bridge = new RosBridge(rosUrl);
     new JointStateListener(bridge.getRos(), (joints) => {
       controller.setJointValues(joints);
+    });
+    new CmdWalkPublisher(bridge.getRos());
+    new OdomListener(bridge.getRos(), (pose) => {
+      viewer.setRobotPose(pose.x, pose.y, pose.yaw);
     });
   }
 }

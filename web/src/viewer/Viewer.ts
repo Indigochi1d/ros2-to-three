@@ -7,6 +7,7 @@ export class Viewer {
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
   private controls: OrbitControls;
+  private robotContainer: THREE.Object3D;
 
   constructor() {
     this.scene = new THREE.Scene();
@@ -44,6 +45,9 @@ export class Viewer {
     const grid = new THREE.GridHelper(10, 20, 0x444444, 0x333333);
     this.scene.add(grid);
 
+    this.robotContainer = new THREE.Object3D();
+    this.scene.add(this.robotContainer);
+
     window.addEventListener("resize", this.onResize.bind(this));
     this.animate();
   }
@@ -52,7 +56,14 @@ export class Viewer {
     // ROS는 Z-up, Three.js는 Y-up이므로 보정
     robot.rotation.x = -Math.PI / 2;
     robot.position.y = 1;
-    this.scene.add(robot);
+    this.robotContainer.add(robot);
+  }
+
+  setRobotPose(x: number, y: number, yaw: number): void {
+    // ROS XY → Three.js XZ (Y-up 좌표계)
+    this.robotContainer.position.x = x;
+    this.robotContainer.position.z = -y;
+    this.robotContainer.rotation.y = yaw;
   }
 
   private onResize(): void {
